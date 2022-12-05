@@ -275,44 +275,6 @@ class enemyspaceship:
                         self.direc = 'down'
 
 
-    """
-            if keys[pygame.K_UP]:
-                self.rect.y -= 2
-                if self.rect.y == 80:
-                    self.rect.y += 4
-
-                
-            if keys[pygame.K_DOWN]:
-                self.rect.y += 2
-                if self.rect.y == 900:
-                    self.
-
-
-    #########################################       
-            keys = pygame.key.get_pressed()
-            if keys[pygame.K_UP]:
-                if self.rect.y > 0:
-                    self.rect.y -= 2
-                    if self.rect.y == 80:
-                        self.direc = 'down'
-
-            if keys[pygame.K_DOWN]:
-                if self.rect.y < 900:
-                    self.rect.y += 2
-                    if self.rect.y == 900:
-                        self.direc = 'up'
-
-            if self.direc == 'up':
-                if self.rect.y > 80:
-                    self.rect.y -= 4
-                    if self.rect.y == 80:
-                        self.direc = 'down'
-            if self.direc == 'down':
-                self.rect.y += 4
-                if self.rect.y == 900:
-                    self.direc = 'up'
-    """
-
     def fire(self):
         if self.rect.x < set.screen_w:
             if self.lasercount == 0:
