@@ -14,7 +14,6 @@ pygame.init()
 #pygame.time.set_timer(NEW_ALIENS, 2000)
 #new_aliens = False
 
-#gamebg = pygame.image.load('data/bg.jpg')
 lasersound = pygame.mixer.Sound('data/laser.wav')
 hitsound = pygame.mixer.Sound('data/hit.wav')
 
@@ -59,7 +58,6 @@ aliennumber=0
 spaceships_number = 0
 alienhealth=0
 alienlaserdamage=1
-#alienvelocity=1.3
 
 yellow=(255,255,0)
 black=(0,0,0)
@@ -232,10 +230,9 @@ class enemyspaceship:
         self.rect = self.image.get_rect()
         self.rect.x = 1800
         self.rect.y = 500
-        self.health = 10
         self.hitbox = (self.rect.x, self.rect.y, self.image.get_width(),self.image.get_height())  # largeur et hauteur du futur vaisseau
         self.vel = 4
-        self.health = 30
+        self.health = 20
         self.lasercount = 0
         self.direc = 'up'
 
@@ -292,7 +289,7 @@ class enemyspaceship:
 
 
 
-        if self.health > 20:
+        if self.health > 10:
             seq = 66
         else:
             seq = 33
@@ -360,21 +357,21 @@ def generateLevel(win,number):
         #battleship = spaceship(50, 250)
         global addalien  #initialisé a False en début de fichier
         #addalien = False
-        aliennumber = 10 #nombre d'alien
+        aliennumber = 15 #nombre d'alien
         spaceships_number = 4
-        alienhealth = 3
+        alienhealth = 2
         alienlaserdamage = 2
         alienvelocity = 3
 
     if levelcounter == 2:
-        alienhealth += 2
+        alienhealth += 1
         showLevel(win, level+1, 'Alien health +2')
     elif levelcounter == 3:
         alienlaserdamage += 2
         showLevel(win, level+1, 'Alien laser damage +2')
     elif levelcounter == 4:
-        alienvelocity += 1
-        showLevel(win, level+1, 'Alien velocity +1')
+        alienvelocity += 4
+        showLevel(win, level+1, 'Alien velocity +4')
     elif levelcounter == 5:
         showLevel(win, level+1, 'Enemy spaceship attacks')
         levelcounter = 0
