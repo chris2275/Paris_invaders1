@@ -27,26 +27,12 @@ class Background:
         largeur1 = self.images_width[self.n]
         screen.blit(image1, (self.offset, 0))
         screen.blit(image2, (self.offset + largeur1, 0))
-        self.offset -= 20
+        self.offset -= 2
         if abs(self.offset) >= largeur1:
             self.n = num_suivant  # Ligne modifiée
             self.offset = 0
 
+    
 
-        """ 
-        def update_background(self, screen):
-            image1 = self.image_list[self.n]
-            image2 = self.image_list[self.n + 1]
-            largeur1 = self.images_width[self.n]
-            screen.blit(image1, (self.offset, 0))
-            screen.blit(image2, (self.offset + largeur1, 0))
-            self.offset -= 2
-            if abs(self.offset) >= largeur1:
-                self.n += 1
-                self.offset = 0
-            if self.n == len(self.image_list) - 1:
-                self.n = 0
-
-        """
 
 
