@@ -239,6 +239,7 @@ class enemyspaceship:
         self.seccount = 170
 
     def draw(self, win):
+        self.hitbox = (self.rect.x, self.rect.y, self.image.get_width(), self.image.get_height())
         win.blit(self.image, (self.rect.x, self.rect.y))
         self.drawHealthBar(win)
         self.move()
@@ -310,7 +311,7 @@ class enemyspaceship:
 
     def hit(self):
         hitsound.play()
-        self.health -= 3
+        self.health -= 1
 
     def drawHealthBar(self, win):
         y = self.rect.y - 10
