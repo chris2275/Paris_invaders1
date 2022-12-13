@@ -244,33 +244,55 @@ class enemyspaceship:
         self.move()
         self.fire()
 
+
+    def up_and_down(self,direc):
+        keys = pygame.key.get_pressed()
+        if self.direc == 'up':
+            if self.rect.y > 0:
+                self.rect.y -= self.vel
+                if self.rect.y == 0:
+                    self.direc = 'down'
+                if keys[pygame.K_DOWN]:
+                    self.direc = 'down'
+
+        if self.direc == 'down':
+            self.rect.y += self.vel
+            if self.rect.y == set.screen_h - self.image.get_height():
+                self.direc = 'up'
+            if keys[pygame.K_UP]:
+                self.direc = 'up'
+
     def move(self):
+        keys = pygame.key.get_pressed()
+        if self.rect.x > 1100:
+            self.rect.x -= self.vel + 3
+        if self.rect.x - battleship.rect.x > 200 and keys[pygame.K_LEFT]:
+            self.rect.x -= self.vel
+        if self.rect.x - battleship.rect.x > 200 and keys[pygame.K_RIGHT]:
+            self.rect.x += self.vel
+        self.up_and_down(self.direc)
+
+
+        """
         keys = pygame.key.get_pressed()
         if self.rect.x > 1100:
             self.rect.x -= self.vel
         if self.rect.x == 1100:
             if self.direc == 'up':
                 if self.rect.y > 0:
-                    self.rect.y -= 4
+                    self.rect.y -= self.vel
                     if self.rect.y == 0:
                         self.direc = 'down'
+                    if keys[pygame.K_DOWN]:
+                        self.direc = 'down'
+
             if self.direc == 'down':
-                self.rect.y += 4
+                self.rect.y += self.vel
                 if self.rect.y == set.screen_h - self.image.get_height():
                     self.direc = 'up'
-
-            if self.direc == 'up' and keys[pygame.K_DOWN]:
-                self.direc == 'down'
-                self.rect.y += 4
-                if self.rect.y == set.screen_h - self.image.get_height():
+                if keys[pygame.K_UP]:
                     self.direc = 'up'
-            if self.direc == 'down' and keys[pygame.K_UP]:
-                self.direc == 'up '
-                if self.rect.y > 0:
-                    self.rect.y -= 4
-                    if self.rect.y == 0:
-                        self.direc = 'down'
-
+            """
 
     def fire(self):
         if self.rect.x < set.screen_w:
@@ -357,7 +379,7 @@ def generateLevel(win,number):
         #battleship = spaceship(50, 250)
         global addalien  #initialisé a False en début de fichier
         #addalien = False
-        aliennumber = 15 #nombre d'alien
+        aliennumber = 1 #nombre d'alien
         spaceships_number = 4
         alienhealth = 2
         alienlaserdamage = 2
@@ -404,8 +426,8 @@ def generateLevel(win,number):
         spawnaliens = True
 
 
-    levelcounter += 1
-    level += 1
+    levelcounter += 4
+    level += 4
 
 ###########################################################################################
 
