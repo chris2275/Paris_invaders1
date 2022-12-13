@@ -35,6 +35,7 @@ spawnaliens = True
 addalien = False
 moving_up = False
 moving_down = False
+left = True
 
 clock = pygame.time.Clock()
 
@@ -80,7 +81,7 @@ class spaceship:
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-        self.vel = 6
+        self.vel = 8
         self.health = set.health_hero
         self.visible = True
         self.hitbox = (self.rect.x, self.rect.y, self.image.get_width(), self.image.get_height())
@@ -230,15 +231,14 @@ class enemyspaceship:
         self.rect = self.image.get_rect()
         self.rect.x = 1800
         self.rect.y = 500
-        self.hitbox = (self.rect.x, self.rect.y, self.image.get_width(),self.image.get_height())  # largeur et hauteur du futur vaisseau
-        self.vel = 4
+        self.hitbox = (self.rect.x, self.rect.y, self.image.get_width(), self.image.get_height())
+        self.vel = 8
         self.health = 20
         self.lasercount = 0
         self.direc = 'up'
-
+        self.seccount = 170
 
     def draw(self, win):
-        self.hitbox = (self.rect.x, self.rect.y, self.image.get_width(), self.image.get_height())
         win.blit(self.image, (self.rect.x, self.rect.y))
         self.drawHealthBar(win)
         self.move()
@@ -249,14 +249,14 @@ class enemyspaceship:
         keys = pygame.key.get_pressed()
         if self.direc == 'up':
             if self.rect.y > 0:
-                self.rect.y -= self.vel
+                self.rect.y -= self.vel / 2
                 if self.rect.y == 0:
                     self.direc = 'down'
                 if keys[pygame.K_DOWN]:
                     self.direc = 'down'
 
         if self.direc == 'down':
-            self.rect.y += self.vel
+            self.rect.y += self.vel / 2
             if self.rect.y == set.screen_h - self.image.get_height():
                 self.direc = 'up'
             if keys[pygame.K_UP]:
@@ -264,35 +264,16 @@ class enemyspaceship:
 
     def move(self):
         keys = pygame.key.get_pressed()
-        if self.rect.x > 1100:
-            self.rect.x -= self.vel + 3
-        if self.rect.x - battleship.rect.x > 200 and keys[pygame.K_LEFT]:
+        self.seccount -= 1
+        if self.seccount > 0:
+            self.rect.x -= self.vel / 2
+
+        if self.rect.x > 800 and keys[pygame.K_LEFT]:
             self.rect.x -= self.vel
-        if self.rect.x - battleship.rect.x > 200 and keys[pygame.K_RIGHT]:
+        if self.rect.x < set.screen_w - self.image.get_width() and battleship.rect.x < 1300 and keys[pygame.K_RIGHT]:
             self.rect.x += self.vel
+
         self.up_and_down(self.direc)
-
-
-        """
-        keys = pygame.key.get_pressed()
-        if self.rect.x > 1100:
-            self.rect.x -= self.vel
-        if self.rect.x == 1100:
-            if self.direc == 'up':
-                if self.rect.y > 0:
-                    self.rect.y -= self.vel
-                    if self.rect.y == 0:
-                        self.direc = 'down'
-                    if keys[pygame.K_DOWN]:
-                        self.direc = 'down'
-
-            if self.direc == 'down':
-                self.rect.y += self.vel
-                if self.rect.y == set.screen_h - self.image.get_height():
-                    self.direc = 'up'
-                if keys[pygame.K_UP]:
-                    self.direc = 'up'
-            """
 
     def fire(self):
         if self.rect.x < set.screen_w:
@@ -312,9 +293,9 @@ class enemyspaceship:
 
 
         if self.health > 10:
-            seq = 66
+            seq = 100
         else:
-            seq = 33
+            seq = 50
         if self.lasercount == 0:
             if men.soundchoose.get_tof():
                 lasersound.set_volume(men.soundbar.get_Volume())
@@ -329,26 +310,26 @@ class enemyspaceship:
 
     def hit(self):
         hitsound.play()
-        self.health -= 1
+        self.health -= 3
 
     def drawHealthBar(self, win):
-        y = self.hitbox[1] - 10
+        y = self.rect.y - 10
         healthfont = pygame.font.SysFont('arial', 20)
         text = healthfont.render(str(self.health), 1, red)
-        win.blit(text, (round((self.hitbox[0] + (self.hitbox[2]/2)) - round(text.get_width()/2)), y - 10))
+        win.blit(text, (round((self.rect.x + (self.image.get_width()/2)) - round(text.get_width()/2)), y - 10))
 
 ###########################################################################################
 ###########################################################################################
 ###########################################################################################
 
-def showLevel(win,level,msg):
-    lvlfont=pygame.font.SysFont('comicsans',50)
-    text=lvlfont.render('Level: '+str(level),1,white)
-    win.blit(text,(350-round(text.get_width()/2),275))
+def showLevel(win, level, msg):
+    lvlfont = pygame.font.SysFont('comicsans', 50)
+    text = lvlfont.render('Level: '+str(level), 1, white)
+    win.blit(text, (350-round(text.get_width()/2), 275))
 
-    msgfont=pygame.font.SysFont('comicsans',30)
-    text=msgfont.render(msg,1,white)
-    win.blit(text,(350-round(text.get_width()/2),315))
+    msgfont = pygame.font.SysFont('comicsans', 30)
+    text = msgfont.render(msg, 1, white)
+    win.blit(text, (350-round(text.get_width()/2), 315))
 
     pygame.display.update()
     time.sleep(3) #La méthode de temps Python sleep() suspend l'exécution pendant le nombre de secondes donné
@@ -380,7 +361,6 @@ def generateLevel(win,number):
         global addalien  #initialisé a False en début de fichier
         #addalien = False
         aliennumber = 1 #nombre d'alien
-        spaceships_number = 4
         alienhealth = 2
         alienlaserdamage = 2
         alienvelocity = 3
@@ -392,12 +372,14 @@ def generateLevel(win,number):
         alienlaserdamage += 2
         showLevel(win, level+1, 'Alien laser damage +2')
     elif levelcounter == 4:
-        alienvelocity += 4
-        showLevel(win, level+1, 'Alien velocity +4')
+        alienvelocity += 5
+        showLevel(win, level+1, 'Alien velocity +5')
     elif levelcounter == 5:
         showLevel(win, level+1, 'Enemy spaceship attacks')
         levelcounter = 0
         spawnaliens = False
+        if battleship.rect.x > 500:
+            battleship.rect.x = 500
     elif levelcounter == 1 and number != 1:
         for p in powerups:
             if p[1]: #si une des lignes est True , elle deviendra False
