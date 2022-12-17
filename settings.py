@@ -4,4 +4,6 @@ alienvelocity = 5
 vel_laser = 10
 interval_fire = 30
 
-health_hero = 100
+health_hero = 200
+alien_health = 2
+alien_number = 4

@@ -54,10 +54,7 @@ powerups = [['double shooting ability', False, False, 'allows you to have twice 
 holdingpowerup=False
 usepowerup=False
 poweruploop=0
-
-aliennumber=0
 spaceships_number = 0
-alienhealth=0
 alienlaserdamage=1
 
 yellow=(255,255,0)
@@ -66,7 +63,6 @@ white=(255,255,255)
 grey=(150,150,150)
 red=(255,0,0)
 green=(0,222,0)
-
 color=green
 
 
@@ -119,13 +115,13 @@ class spaceship:
 
 
     def drawHealthBar(self,win): # barre de vie spaceship
-        font1 = pygame.font.SysFont('comicsans', 30)
-        text = font1.render('Health:', 1, red)
+        font1 = pygame.font.SysFont('arial', 40)
+        text = font1.render('Vie :', 1, green)
         win.blit(text, (5, 5))
-        textb = font1.render(str(self.health), 1, red)
-        win.blit(textb, (210, 5))
+        textb = font1.render(str(self.health), 1, green)
+        win.blit(textb, (280, 5))
         if self.health > 0:
-            pygame.draw.rect(win, red, (15 + text.get_width(), round(text.get_height() / 2), round(self.health/2), 10))
+            pygame.draw.rect(win, green, (30 + text.get_width(), round(text.get_height() / 2), round(self.health/2), 20))
 
     def hit(self):
         global alienlaserdamage
@@ -143,8 +139,8 @@ class enemyAlien: #personnage alien
         self.image = pygame.image.load('data/ennemi.png')
         self.image = pygame.transform.scale(self.image, (100, 100))
         self.rect = self.image.get_rect()
-        self.rect.x = random.randrange(1800, 10000)
-        self.rect.y = random.randrange(0, 1000)
+        self.rect.x = random.randrange(1800, 60000)
+        self.rect.y = random.randrange(0, 850)
         self.health = health
         self.hitbox = (self.rect.x, self.rect.y, self.image.get_width(), self.image.get_height()) #largeur et hauteur du futur vaisseau
         self.vel = vel
@@ -171,12 +167,12 @@ class enemyAlien: #personnage alien
             win.blit(self.image, (self.rect.x, self.rect.y))
 
     def drawHealthBar(self, win):
-        y = self.hitbox[1] - 10
-        healthfont = pygame.font.SysFont('arial', 20)
-        text = healthfont.render(str(self.health), 1, red)
-        win.blit(text, (self.hitbox[0] + (self.hitbox[2] / 2), y))
-            
-        
+        healthfont = pygame.font.SysFont('arial', 40)
+        text1 = healthfont.render('Aliens :', 1, green)
+        win.blit(text1, (1400, 5))
+        text2 = healthfont.render(str(len(aliens)), 1, green)
+        win.blit(text2, (1550, 5))
+
 
     def fire(self):
         if self.rect.x < set.screen_w:
@@ -361,8 +357,8 @@ def generateLevel(win,number):
         #battleship = spaceship(50, 250)
         global addalien  #initialisé a False en début de fichier
         #addalien = False
-        aliennumber = 1 #nombre d'alien
-        alienhealth = 2
+        aliennumber = set.alien_number
+        alienhealth = set.alien_health
         alienlaserdamage = 2
         alienvelocity = 3
 
