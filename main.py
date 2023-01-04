@@ -29,13 +29,13 @@ def start():
         pygame.mixer.music.play(-1)
     
         while menu:
-            number=men.menu(win)
-            if number==0:
-                menu=False
-                game=False
-            elif number==1:
-                run=True
-                menu=False
+            number = men.menu(win)
+            if number == 0:
+                menu = False
+                game = False
+            elif number == 1:
+                run = True
+                menu = False
     
         pygame.mixer.music.stop()  # si pas menu la musique est arreté     
         if men.musicchoose.get_tof():#get_tof retourne si le boutton permettant la musique a été enfoncé
@@ -45,13 +45,13 @@ def start():
             pygame.mixer.music.play(-1)
 
         while run:
-            num=gamerun.run(win)#retourne 0 ou 1
-            if num==0:
-                run=False
-                game=False
-            if num==1:
-                run=False
-                menu=True
+            num = gamerun.run(win)#retourne 0 ou 1
+            if num == 0:
+                run = False
+                game = False
+            if num == 1:
+                run = False
+                menu = True
                 
     if gamerun.level > s.readlevel():#fonction dans save qui retourne le level incrit dans un fichier .txt
     	#fonction save() dans save sauvegarde level,alienkills,shipkills,etc...enregisre aussi date et heure

@@ -6,4 +6,4 @@ interval_fire = 30
 
 health_hero = 200
 alien_health = 2
-alien_number = 4
+alien_number = 30

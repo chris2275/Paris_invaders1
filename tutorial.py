@@ -24,8 +24,8 @@ def button(win,msg,x,y,w,h,itext,atext,col):
         size=20
         w+=50
     elif msg=='Pause':
-        size=20
-    elif msg=='Use':
+        size=50
+    elif msg=='Utilisation':
         size=15
     else:
         size=35
@@ -67,11 +67,12 @@ def printKey(win,key,x,y):
     win.blit(text,(x+7,y+7))
 
 def drawtutorialship(win,x,y):#representation vaisseau bas sur page acceuil
-    pygame.draw.rect(win,grey,(x+20,y,70,50))
-    pygame.draw.rect(win,yellow,(x+90,y+15,20,35))
-    pygame.draw.rect(win,yellow,(x,y+15,20,35))
-    pygame.draw.rect(win,white,(x+round(110/2)-5,y-20,10,20))
-    pygame.draw.rect(win,yellow,(104,340,3,30))
+    #fonction a supprimer ?
+    pygame.draw.rect(win,green,(x+20,y,70,50))
+    pygame.draw.rect(win,green,(x+90,y+15,20,35))
+    pygame.draw.rect(win,green,(x,y+15,20,35))
+    pygame.draw.rect(win,green,(x+round(110/2)-5,y-20,10,20))
+    pygame.draw.rect(win,green,(104,340,3,30))
     
 def drawLaser(win,x,y,color):
     pygame.draw.rect(win,color,(x,y,3,30))

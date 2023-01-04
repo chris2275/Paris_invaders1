@@ -161,19 +161,19 @@ class choosebutton:
 def drawMenuLayout(win):
     win.fill((0,0,0))
     font1=pygame.font.SysFont('comicsansms',80)
-    text=font1.render('Paris_invaders',1,yellow)
+    text=font1.render('PARIS INVADERS',1,yellow)
     win.blit(text,(20,10))
     font2=pygame.font.SysFont('comicsansms',15)
     text2=font2.render('v.1.0.0',1,white)
     win.blit(text2,(screen_w-text2.get_width()-20,screen_h-text2.get_height()-5))
 
-    t.drawtutorialship(win,50,400)#representation du vaisseau bas page acceuil
+    #t.drawtutorialship(win,50,400)#representation du vaisseau bas page acceuil
     #representation vaisseau haut page d'acceuil
-    pygame.draw.rect(win,grey,(90,150,70,50))
-    pygame.draw.rect(win,green,(160,150,20,35))
-    pygame.draw.rect(win,green,(70,150,20,35))
-    pygame.draw.rect(win,white,(120,200,10,20))
-    pygame.draw.rect(win,green,(122,260,3,30))
+    #pygame.draw.rect(win,grey,(90,150,70,50))
+    #pygame.draw.rect(win,green,(160,150,20,35))
+    #pygame.draw.rect(win,green,(70,150,20,35))
+    #pygame.draw.rect(win,white,(120,200,10,20))
+    #pygame.draw.rect(win,green,(122,260,3,30))
     
 
 def drawChooseTutorial(win):#boutton tutorial , gestion du yes , no ou back
@@ -386,87 +386,87 @@ def menu(win):
     redrawMenuWindow(win)# affichage tous les boutons sauf vaisseaux page acceuil et retourne si
     #appuyer sur soit play soit settings etc...
     for event in pygame.event.get():
-        if event.type==pygame.QUIT:
+        if event.type == pygame.QUIT:
             return 0
     if button1: #bouton play du menu , si clique sur play on passe dabord a la page tutorial
         # a savoir soit oui ou non tutorial ou back vers le premier menu
-        choosetut=True   #choosetut = choix tutorial
+        choosetut = True   #choosetut = choix tutorial
         while choosetut:
             clock.tick(30)
             for event in pygame.event.get():
-                if event.type==pygame.QUIT:
+                if event.type == pygame.QUIT:
                     return 0 #si le retour est 0 ,menu=False et game=False ( dans fichier main)
                     	     #si le retour est 1 , run=True et menu=False (dans fichier main)
             drawChooseTutorial(win)#boutton tutorial , gestion du yes , no ou back
             if yesbutton:# appelle la fonction button dans fichier tutorial retourne si le bouton est True ou False et la fonction button gere le cliquage sur le boutton ou non (boutton yes)
-                tutorial=True
+                tutorial = True
                 while tutorial:
                     clock.tick(30)
                     for event in pygame.event.get():
-                        if event.type==pygame.QUIT:
+                        if event.type == pygame.QUIT:
                             return 0
                     drawMenuLayout(win)# affichage yellow spaceship + vaisseau haut et bas sur page acceuil
-                    num=t.doTutorial(win) #affichage des differentes pages du tutorial
+                    num = t.doTutorial(win) #affichage des differentes pages du tutorial
                     #retourne soi 0 , 1 ou 2
-                    if num==1:
+                    if num == 1:
                         return 1
-                    elif num==2:
-                        tutorial=False
-                        choosetut=False
+                    elif num == 2:
+                        tutorial = False
+                        choosetut = False
             if nobutton:# boutton no
                 return 1 # la boucle run du fichier main est True
             if backbutton:  #boutton back
-                choosetut=False
+                choosetut = False
     if button2: # boutton settings du menu
-        settings=True
+        settings = True
         while settings:
             clock.tick(30)
             for event in pygame.event.get():
-                if event.type==pygame.QUIT:
+                if event.type == pygame.QUIT:
                     return 0
             drawSettings(win) #1 ere page credit
             if backbutton:
-                settings=False
+                settings = False
     if button3:  #score
-        scorewin=True
+        scorewin = True
         while scorewin:
             clock.tick(30)
             for event in pygame.event.get():
-                if event.type==pygame.QUIT:
+                if event.type == pygame.QUIT:
                     return 0
             drawscorewin(win)
             if backbutton:
-                scorewin=False
+                scorewin = False
 
     if button4:  #boutton credits du menu
-        credit=True
+        credit = True
         while credit:
             clock.tick(30)
             for event in pygame.event.get():
-                if event.type==pygame.QUIT:
+                if event.type == pygame.QUIT:
                     return 0
             drawCredits(win)# page settings avec reglages divers
             if nextbutton:
-                credit2=True
-                credit=False
+                credit2 = True
+                credit = False
         while credit2:
             clock.tick(30)
             for event in pygame.event.get():
-                if event.type==pygame.QUIT:
+                if event.type == pygame.QUIT:
                     return 0
             drawCredits2(win)
             if backbutton:
-                credit2=False                 
+                credit2 = False
         
     if button5:  #boutton quit du menu
-        quitt=True
+        quitt = True
         while quitt:
             clock.tick(30)
             for event in pygame.event.get():
-                if event.type==pygame.QUIT:
+                if event.type == pygame.QUIT:
                     return 0
             drawquit(win)
             if yesbutton:
                 return 0
             if nobutton:
-                quitt=False
+                quitt = False
